@@ -1,0 +1,211 @@
+$error_red: #F36363;
+$grey: #A5A5A5;
+
+.open-button {
+  background-color: #8A2BE2FF;
+  top: 30%;
+  color: #FFF;
+  text-align: center;
+  padding: 15px 0;
+}
+
+.modal {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(229,229,229,0.7);
+  transition: all 0.4s;
+  opacity: 0;
+  visibility: hidden;
+
+  &:target {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &:target .form{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form {
+  position: relative;
+  margin: 20px 0;
+  width: 600px;
+  height: 632px;
+  padding: 40px 54px 30px;
+  background-color:#FFF;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.8s;
+}
+
+.form:after {
+  @include overlay(rgba(154, 150, 150, 0.3), "../img/loading.gif")
+}
+
+.form.processing:after {
+  @include show-overlay;
+}
+
+.form__close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  transform: scale(2);
+  color: $grey;
+}
+
+.form__title {
+  @include font(35px, 900);
+  margin-bottom: 46px;
+}
+
+.form__body:after {
+  @include overlay(#FFF, "../img/error.svg")
+}
+
+.form__body.loss:after {
+  @include show-overlay;
+}
+
+.form__body:before {
+  @include overlay(#FFF, "../img/succesfull.svg")
+}
+
+.form__body.successfully:before {
+  @include show-overlay;
+}
+
+.form__fields {
+  display: grid;
+  grid-template-columns: repeat(2, 240px);
+  grid-template-rows: repeat(2, 65px) 180px;
+  grid-gap: 20px 12px;
+}
+
+.form__item {
+  height: 100%;
+}
+
+.field-input {
+  @include font(16px, 400);
+  height: 50px;
+  width: 100%;
+  border-radius: 5px;
+  border: solid 1px $grey;
+  padding: 16px 20px;
+  transition: all 0.5s;
+
+  &.error {
+    border: solid 1px $error_red;
+  }
+
+  &::placeholder {
+    color: transparent;
+  }
+}
+
+.field-label {
+  @include font(16px, 400);
+  display: block;
+  padding-left: 20px;
+  color: $grey;
+  opacity: 1;
+  transform: translateY(-34px);
+  transform-origin: 0 0;
+  transition: all 0.3s;
+  cursor: text;
+
+  &.error {
+    color: $error_red;
+  }
+}
+
+.field-error {
+  @include font(12px, 400);
+  transform: translateY(-20px);
+  padding-left: 20px;
+  display: block;
+  opacity: 0;
+  &.error {
+    opacity: 1;
+    color: $error_red;
+  }
+}
+
+.message {
+  width: 492px;
+  grid-row-start: 3;
+  padding: 15px 0;
+}
+
+.message__field-input {
+  resize: none;
+  height: 100%;
+}
+
+.message__field-label {
+  position: relative;
+  top: -105px;
+}
+
+.message__field-error {
+  transform: translateY(-20px);
+}
+
+.field-input:focus + .field-label,
+.field-input:not(:placeholder-shown) + .field-label
+{
+  transform: translateY(-68px);
+  font-size: 12px;
+}
+
+.form__agreement {
+  @include font(13px, 400);
+  display: block;
+  margin-top: 12px;
+  padding-left: 14px;
+}
+
+.form__link {
+  color: #000;
+  text-decoration: underline;
+}
+
+.form__button {
+  bottom: 35px;
+  background-color: #F9C73B;
+}
+
+@media (max-width: 768px) {
+  .form {
+    height: 750px;
+  }
+  .form__fields {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 65px) 180px;
+    grid-row-gap: 20px;
+  }
+  .form__item.message {
+    grid-row-start: 4;
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .form__title {
+    @include font(30px, 900);
+  }
+}
+
+@media (max-width: 345px) {
+  .form__title {
+    @include font(25px, 900);
+  }
+  .form {
+    padding: 40px 20px 30px;
+  }
+}

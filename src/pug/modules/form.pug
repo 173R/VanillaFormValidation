@@ -1,0 +1,19 @@
+include ../mixins/input
+
+.form
+  a.form__close(href='#')='x'
+  h1.form__title Обратная связь
+  form.form__body
+    .form__fields
+      +input-field('name', 'Имя', 'Проверьте введённое имя', 'form__item')
+      +input-field('phone', 'Телефон', 'Проверьте введённый номер', 'form__item')
+      +input-field('email', 'Эл. почта', 'Проверьте введённый email', 'form__item')
+      .form__item.message
+        textarea#message-field.field-input.message__field-input(name='message' data-validate)
+        label.field-label.message__field-label(for='message-field') Сообщение
+        span.field-error.message__field-error Проверьте введённое сообщение
+    span.form__agreement.
+      Отправляя форму вы соглашаетесь с
+      #[a.form__link(href='#') пользовательским соглашением ]
+      #[br] и #[a.form__link(href='#') политикой конфиденциальности ]
+    button.form__button.button(type='submit') Отправить

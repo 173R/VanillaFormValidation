@@ -1,0 +1,7 @@
+mixin input-field(name, label, error, blockClass)
+  - const id = 'field-'+name
+
+  div(class = blockClass)
+    input.field-input(id=id data-validate name=name placeholder=' ')
+    label.field-label(for=id)=label
+    span.field-error=error
